@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using bad115_backend.Models;
+using Newtonsoft.Json.Linq;
 
 namespace WebApiProducto.Controllers
 {
@@ -69,6 +66,51 @@ namespace WebApiProducto.Controllers
             _context.Productos.Remove(producto);
             await _context.SaveChangesAsync();
             return producto;
+        }
+
+        [HttpGet("subcategorias/{id_prod}")]
+        public IActionResult ObtenerSubcategoriasDeProducto(int id_prod)
+        {
+            var subcategorias = _context.Subcategorias
+                .Where(sub => sub.IdProds.Any(prod => prod.IdProd == id_prod))
+                .ToList();
+
+            return Ok(subcategorias);
+        }
+
+        [HttpPost("{idProducto}/{idSubCategoria}")]
+        public async Task<IActionResult> AddSubcategoriaToProducto(int idProducto, int idSubCategoria)
+        {
+            try
+            {
+                // Verificar si el producto existe
+                var producto = await _context.Productos.FindAsync(idProducto);
+                if (producto == null)
+                {
+                    return NotFound($"No se encontró el producto con ID {idProducto}");
+                }
+
+                // Verificar si la subcategoría existe
+                var subcategoriaExistente = await _context.Subcategorias.FindAsync(idSubCategoria);
+                if (subcategoriaExistente == null)
+                {
+                    return NotFound($"No se encontró la subcategoría con ID {idSubCategoria}");
+                }
+
+                var categoriza = _context.Set<Dictionary<string, object>>("Categoriza").FirstOrDefault(c => (int)c["IdProd"] == idProducto && (int)c["IdSub"] == idSubCategoria);
+                if (categoriza != null)
+                    return BadRequest($"La subcategoría con ID {idSubCategoria} ya existe en el producto con ID {idProducto}");
+                // Añadir la subcategoría al producto
+                producto.IdSubs.Add(subcategoriaExistente);
+                await _context.SaveChangesAsync();
+
+                return Ok($"Se añadió la subcategoría con ID {idSubCategoria} al producto con ID {idProducto}");
+            }
+            catch (Exception ex)
+            {
+                // Manejar cualquier error
+                return StatusCode(500, $"Ocurrió un error al añadir la subcategoría al producto: {ex.Message}{ex.StackTrace}");
+            }
         }
     }
 }
