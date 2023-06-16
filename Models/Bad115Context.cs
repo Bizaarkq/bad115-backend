@@ -384,7 +384,7 @@ public partial class Bad115Context : DbContext
             entity.ToTable("PRODUCTO");
 
             entity.Property(e => e.IdProd)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_PROD");
             entity.Property(e => e.Descripcion)
                 .HasMaxLength(200)
