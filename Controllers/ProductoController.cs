@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using bad115_backend.Models;
-using Newtonsoft.Json.Linq;
 
 namespace WebApiProducto.Controllers
 {
