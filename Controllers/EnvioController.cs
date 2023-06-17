@@ -35,59 +35,6 @@ namespace bad115_backend.Controllers
             return Ok(envios);
         }
 
-        /*[HttpPost]
-        public IActionResult CrearEnvio([FromBody] dynamic request)
-        {
-            // Acceder a las propiedades del objeto JSON utilizando la notación de puntos
-            int idPed = request.IdPed;
-            string codigo = request.Codigo;
-            DateTime fecha = request.Fecha;
-            string direccionOrigen = request.DireccionOrigen;
-            string direccionDestino = request.DireccionDestino;
-            string metodoEnvio = request.MetodoEnvio;
-            string estadoActual = request.EstadoActual;
-            DateTime fechaEntregaEstimada = request.FechaEntregaEstimada;
-            decimal costoEnvio = request.CostoEnvio;
-            string notas = request.Notas;
-
-            // Crear el objeto Envio a partir de la información recibida
-            var envio = new Envio
-            {
-                IdPed = idPed,
-                Codigo = codigo,
-                Fecha = fecha,
-                DireccionOrigen = direccionOrigen,
-                DireccionDestino = direccionDestino,
-                MetodoEnvio = metodoEnvio,
-                EstadoActual = estadoActual,
-                FechaEntregaEstimada = fechaEntregaEstimada,
-                CostoEnvio = costoEnvio,
-                Notas = notas
-            };
-
-            // Acceder a la lista de productos del objeto JSON
-            var productos = request.Productos;
-            foreach (var producto in productos)
-            {
-                int idProd = producto.IdProd;
-
-                // Modificar el campo IdEnv en PedidoProducto
-                var pedidoProducto = _context.Pedidoproductos.FirstOrDefault(pp =>
-                    pp.IdPed == idPed && pp.IdProd == idProd);
-
-                if (pedidoProducto != null)
-                {
-                    pedidoProducto.IdEnv = envio.IdEnv;
-                    _context.SaveChanges();
-                }
-            }
-
-            // Guardar el envío en la base de datos
-            _context.Envios.Add(envio);
-            _context.SaveChanges();
-
-            return Ok();
-        }*/
         [HttpPost]
         public async Task<IActionResult> CrearEnvio([FromBody] JsonElement request)
         {
