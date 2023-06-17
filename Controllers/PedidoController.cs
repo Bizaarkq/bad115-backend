@@ -24,18 +24,25 @@ namespace bad115_backend.Controllers
         }
 
         [HttpGet("productos-pedido/{IdPed}")]
-        public IActionResult ObtenerProductosDePedido(int IdPed)
+        public async Task<ActionResult> GetPedidoProductos(int IdPed)
         {
-            var pedidoProductos = _context.Pedidoproductos
-        .Where(p => p.IdPed == IdPed)
-        .ToList();
+            var pedidoProductos = await _context.Set<Pedidoproducto>()
+                .Include(pp => pp.IdProdNavigation)  // Incluir la relación con Producto
+                .Where(pp => pp.IdPed == IdPed)
+                .ToListAsync();
 
-            if (pedidoProductos.Count == 0)
+            var resultado = pedidoProductos.Select(pp => new
             {
-                return NotFound();
-            }
+                producto = new
+                {
+                    id_pro = pp.IdProdNavigation.IdProd,
+                    nombre = pp.IdProdNavigation.Nombre,
+                    precio = pp.IdProdNavigation.Precio
+                },
+                cantidad = pp.Cantidad
+            });
 
-            return Ok(pedidoProductos);
+            return Ok(resultado);
         }
     }
 }

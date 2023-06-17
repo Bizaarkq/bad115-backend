@@ -154,7 +154,7 @@ public partial class Bad115Context : DbContext
             entity.HasIndex(e => e.IdPed, "PROGRAMA_FK");
 
             entity.Property(e => e.IdEnv)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_ENV");
             entity.Property(e => e.Codigo)
                 .HasMaxLength(10)

@@ -196,8 +196,11 @@ namespace bad115_backend.Migrations
             modelBuilder.Entity("bad115_backend.Models.Envio", b =>
                 {
                     b.Property<int>("IdEnv")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("ID_ENV");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdEnv"));
 
                     b.Property<string>("Codigo")
                         .IsRequired()

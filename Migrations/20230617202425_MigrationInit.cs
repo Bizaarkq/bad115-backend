@@ -208,7 +208,8 @@ namespace bad115_backend.Migrations
                 name: "ENVIO",
                 columns: table => new
                 {
-                    ID_ENV = table.Column<int>(type: "int", nullable: false),
+                    ID_ENV = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ID_PED = table.Column<int>(type: "int", nullable: false),
                     CODIGO = table.Column<string>(type: "varchar(10)", unicode: false, maxLength: 10, nullable: false),
                     FECHA = table.Column<DateTime>(type: "datetime", nullable: false),

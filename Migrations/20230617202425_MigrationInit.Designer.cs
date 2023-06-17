@@ -12,7 +12,7 @@ using bad115_backend.Models;
 namespace bad115_backend.Migrations
 {
     [DbContext(typeof(Bad115Context))]
-    [Migration("20230617071934_MigrationInit")]
+    [Migration("20230617202425_MigrationInit")]
     partial class MigrationInit
     {
         /// <inheritdoc />
@@ -199,8 +199,11 @@ namespace bad115_backend.Migrations
             modelBuilder.Entity("bad115_backend.Models.Envio", b =>
                 {
                     b.Property<int>("IdEnv")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("ID_ENV");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdEnv"));
 
                     b.Property<string>("Codigo")
                         .IsRequired()
