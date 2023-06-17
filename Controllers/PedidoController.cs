@@ -18,9 +18,32 @@ namespace bad115_backend.Controllers
         }
 
         [HttpGet(Name = "GetPedidos")]
-        public async Task<ActionResult<IEnumerable<Pedido>>> GetPedidos()
+        public async Task<ActionResult> GetPedidos()
         {
-            return await _context.Pedidos.ToListAsync();
+            var pedidos = await _context.Pedidos.Include(p => p.IdCliNavigation).ToListAsync();
+
+            var resultado = pedidos.Select(pp => new
+            {
+                cliente = new
+                {
+                    IdCli = pp.IdCliNavigation.IdCli,
+                    Nombres = pp.IdCliNavigation.Nombres,
+                    Apellidos = pp.IdCliNavigation.Apellidos,
+                    Direccion = pp.IdCliNavigation.Direccion,
+                    Correo = pp.IdCliNavigation.Correo,
+                    FechaNacimiento = pp.IdCliNavigation.FechaNacimiento,
+                    Sexo = pp.IdCliNavigation.Sexo,
+                },
+                IdPed = pp.IdPed,
+                IdCli = pp.IdCli,
+                Codigo = pp.Codigo,
+                Fecha = pp.Fecha,
+                EstadoActual = pp.EstadoActual,
+                Total = pp.Total,
+                Notas = pp.Notas,
+            });
+
+            return Ok(resultado);
         }
 
         [HttpGet("productos-pedido/{IdPed}")]
