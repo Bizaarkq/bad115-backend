@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace bad115_backend.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class MigrationInit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -264,15 +264,15 @@ namespace bad115_backend.Migrations
                 {
                     ID_PROD = table.Column<int>(type: "int", nullable: false),
                     ID_PED = table.Column<int>(type: "int", nullable: false),
-                    ID_ENV = table.Column<int>(type: "int", nullable: false),
                     ID_BODEGA = table.Column<int>(type: "int", nullable: false),
+                    ID_ENV = table.Column<int>(type: "int", nullable: true),
                     DESCUENTO = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
                     NOTAS = table.Column<string>(type: "varchar(250)", unicode: false, maxLength: 250, nullable: true),
                     CANTIDAD = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PEDIDOPRODUCTO", x => new { x.ID_PROD, x.ID_PED, x.ID_ENV, x.ID_BODEGA })
+                    table.PrimaryKey("PK_PEDIDOPRODUCTO", x => new { x.ID_PROD, x.ID_PED, x.ID_BODEGA })
                         .Annotation("SqlServer:Clustered", false);
                     table.ForeignKey(
                         name: "FK_PEDIDOPR_PEDIDOPRO_BODEGA",

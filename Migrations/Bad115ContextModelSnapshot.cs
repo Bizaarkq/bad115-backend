@@ -447,10 +447,6 @@ namespace bad115_backend.Migrations
                         .HasColumnType("int")
                         .HasColumnName("ID_PED");
 
-                    b.Property<int>("IdEnv")
-                        .HasColumnType("int")
-                        .HasColumnName("ID_ENV");
-
                     b.Property<int>("IdBodega")
                         .HasColumnType("int")
                         .HasColumnName("ID_BODEGA");
@@ -463,15 +459,19 @@ namespace bad115_backend.Migrations
                         .HasColumnType("decimal(10, 2)")
                         .HasColumnName("DESCUENTO");
 
+                    b.Property<int?>("IdEnv")
+                        .HasColumnType("int")
+                        .HasColumnName("ID_ENV");
+
                     b.Property<string>("Notas")
                         .HasMaxLength(250)
                         .IsUnicode(false)
                         .HasColumnType("varchar(250)")
                         .HasColumnName("NOTAS");
 
-                    b.HasKey("IdProd", "IdPed", "IdEnv", "IdBodega");
+                    b.HasKey("IdProd", "IdPed", "IdBodega");
 
-                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("IdProd", "IdPed", "IdEnv", "IdBodega"), false);
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("IdProd", "IdPed", "IdBodega"), false);
 
                     b.HasIndex(new[] { "IdProd" }, "PEDIDOPRODUCTO2_FK");
 
@@ -768,7 +768,6 @@ namespace bad115_backend.Migrations
                     b.HasOne("bad115_backend.Models.Envio", "IdEnvNavigation")
                         .WithMany("Pedidoproductos")
                         .HasForeignKey("IdEnv")
-                        .IsRequired()
                         .HasConstraintName("FK_PEDIDOPR_PEDIDOPRO_ENVIO");
 
                     b.HasOne("bad115_backend.Models.Pedido", "IdPedNavigation")

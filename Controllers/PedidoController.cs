@@ -22,5 +22,20 @@ namespace bad115_backend.Controllers
         {
             return await _context.Pedidos.ToListAsync();
         }
+
+        [HttpGet("productos-pedido/{IdPed}")]
+        public IActionResult ObtenerProductosDePedido(int IdPed)
+        {
+            var pedidoProductos = _context.Pedidoproductos
+        .Where(p => p.IdPed == IdPed)
+        .ToList();
+
+            if (pedidoProductos.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(pedidoProductos);
+        }
     }
 }
