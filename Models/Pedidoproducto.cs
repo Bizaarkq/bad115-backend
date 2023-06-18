@@ -9,7 +9,7 @@ public partial class Pedidoproducto
 
     public int IdPed { get; set; }
 
-    public int IdEnv { get; set; }
+    public int? IdEnv { get; set; }
 
     public int IdBodega { get; set; }
 

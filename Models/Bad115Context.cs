@@ -160,7 +160,7 @@ public partial class Bad115Context : DbContext
             entity.HasIndex(e => e.IdPed, "PROGRAMA_FK");
 
             entity.Property(e => e.IdEnv)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_ENV");
             entity.Property(e => e.Codigo)
                 .HasMaxLength(10)
@@ -337,7 +337,7 @@ public partial class Bad115Context : DbContext
 
         modelBuilder.Entity<Pedidoproducto>(entity =>
         {
-            entity.HasKey(e => new { e.IdProd, e.IdPed, e.IdEnv, e.IdBodega }).IsClustered(false);
+            entity.HasKey(e => new { e.IdProd, e.IdPed, e.IdBodega }).IsClustered(false);
 
             entity.ToTable("PEDIDOPRODUCTO");
 
@@ -351,7 +351,7 @@ public partial class Bad115Context : DbContext
 
             entity.Property(e => e.IdProd).HasColumnName("ID_PROD");
             entity.Property(e => e.IdPed).HasColumnName("ID_PED");
-            entity.Property(e => e.IdEnv).HasColumnName("ID_ENV");
+            entity.Property(e => e.IdEnv).HasColumnName("ID_ENV").IsRequired(false); ;
             entity.Property(e => e.IdBodega).HasColumnName("ID_BODEGA");
             entity.Property(e => e.Cantidad).HasColumnName("CANTIDAD");
             entity.Property(e => e.Descuento)
@@ -390,7 +390,7 @@ public partial class Bad115Context : DbContext
             entity.ToTable("PRODUCTO");
 
             entity.Property(e => e.IdProd)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_PROD");
             entity.Property(e => e.Descripcion)
                 .HasMaxLength(200)
