@@ -20,7 +20,8 @@ namespace bad115_backend.Controllers
         [HttpGet(Name = "GetPedidos")]
         public async Task<ActionResult> GetPedidos()
         {
-            var pedidos = await _context.Pedidos.Include(p => p.IdCliNavigation).ToListAsync();
+            var pedidos = await _context.Pedidos.Include(p => p.IdCliNavigation)
+            .Where(p => p.Pedidoproductos.Any(pp => pp.IdEnv == null)).ToListAsync();
 
             var resultado = pedidos.Select(pp => new
             {
@@ -52,6 +53,7 @@ namespace bad115_backend.Controllers
             var pedidoProductos = await _context.Set<Pedidoproducto>()
                 .Include(pp => pp.IdProdNavigation)  // Incluir la relación con Producto
                 .Where(pp => pp.IdPed == IdPed)
+                .Where(pp => pp.IdEnv == null)
                 .ToListAsync();
 
             var resultado = pedidoProductos.Select(pp => new
