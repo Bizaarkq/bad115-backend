@@ -33,6 +33,7 @@ namespace bad115_backend.Controllers
         [HttpPost]
         public async Task<ActionResult<Seguimiento>> Post(Seguimiento seguimiento)
         {
+            seguimiento.FechaHoraUpdate = DateTime.Now;
             _context.Seguimientos.Add(seguimiento);
             await _context.SaveChangesAsync();
             return new CreatedAtRouteResult("Getseguimiento", new { id = seguimiento.IdSeg }, seguimiento);
