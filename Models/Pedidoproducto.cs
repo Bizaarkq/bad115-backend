@@ -11,7 +11,7 @@ public partial class Pedidoproducto
 
     public int? IdEnv { get; set; }
 
-    public int IdBodega { get; set; }
+    public int? IdBodega { get; set; }
 
     public decimal? Descuento { get; set; }
 

@@ -12,7 +12,7 @@ using bad115_backend.Models;
 namespace bad115_backend.Migrations
 {
     [DbContext(typeof(Bad115Context))]
-    [Migration("20230617202425_MigrationInit")]
+    [Migration("20230618041751_MigrationInit")]
     partial class MigrationInit
     {
         /// <inheritdoc />
@@ -95,8 +95,11 @@ namespace bad115_backend.Migrations
             modelBuilder.Entity("bad115_backend.Models.Bodega", b =>
                 {
                     b.Property<int>("IdBodega")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("ID_BODEGA");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdBodega"));
 
                     b.Property<string>("Direccion")
                         .HasMaxLength(200)
@@ -129,8 +132,11 @@ namespace bad115_backend.Migrations
             modelBuilder.Entity("bad115_backend.Models.Categorium", b =>
                 {
                     b.Property<int>("IdCat")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("ID_CAT");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdCat"));
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -149,8 +155,11 @@ namespace bad115_backend.Migrations
             modelBuilder.Entity("bad115_backend.Models.Cliente", b =>
                 {
                     b.Property<int>("IdCli")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("ID_CLI");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdCli"));
 
                     b.Property<string>("Apellidos")
                         .IsRequired()
@@ -274,8 +283,11 @@ namespace bad115_backend.Migrations
             modelBuilder.Entity("bad115_backend.Models.Factura", b =>
                 {
                     b.Property<int>("IdFac")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("ID_FAC");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdFac"));
 
                     b.Property<string>("Codigo")
                         .IsRequired()
@@ -339,8 +351,11 @@ namespace bad115_backend.Migrations
             modelBuilder.Entity("bad115_backend.Models.Pago", b =>
                 {
                     b.Property<int>("IdPag")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("ID_PAG");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPag"));
 
                     b.Property<string>("Colector")
                         .IsRequired()
@@ -399,8 +414,11 @@ namespace bad115_backend.Migrations
             modelBuilder.Entity("bad115_backend.Models.Pedido", b =>
                 {
                     b.Property<int>("IdPed")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("ID_PED");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPed"));
 
                     b.Property<string>("Codigo")
                         .IsRequired()
@@ -453,10 +471,6 @@ namespace bad115_backend.Migrations
                         .HasColumnType("int")
                         .HasColumnName("ID_PED");
 
-                    b.Property<int>("IdBodega")
-                        .HasColumnType("int")
-                        .HasColumnName("ID_BODEGA");
-
                     b.Property<int>("Cantidad")
                         .HasColumnType("int")
                         .HasColumnName("CANTIDAD");
@@ -464,6 +478,10 @@ namespace bad115_backend.Migrations
                     b.Property<decimal?>("Descuento")
                         .HasColumnType("decimal(10, 2)")
                         .HasColumnName("DESCUENTO");
+
+                    b.Property<int?>("IdBodega")
+                        .HasColumnType("int")
+                        .HasColumnName("ID_BODEGA");
 
                     b.Property<int?>("IdEnv")
                         .HasColumnType("int")
@@ -475,9 +493,9 @@ namespace bad115_backend.Migrations
                         .HasColumnType("varchar(250)")
                         .HasColumnName("NOTAS");
 
-                    b.HasKey("IdProd", "IdPed", "IdBodega");
+                    b.HasKey("IdProd", "IdPed");
 
-                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("IdProd", "IdPed", "IdBodega"), false);
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("IdProd", "IdPed"), false);
 
                     b.HasIndex(new[] { "IdProd" }, "PEDIDOPRODUCTO2_FK");
 
@@ -532,8 +550,11 @@ namespace bad115_backend.Migrations
             modelBuilder.Entity("bad115_backend.Models.Proveedor", b =>
                 {
                     b.Property<int>("IdProv")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("ID_PROV");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdProv"));
 
                     b.Property<string>("Contacto")
                         .HasMaxLength(50)
@@ -573,11 +594,38 @@ namespace bad115_backend.Migrations
                     b.ToTable("PROVEEDOR", (string)null);
                 });
 
+            modelBuilder.Entity("bad115_backend.Models.Role", b =>
+                {
+                    b.Property<int>("IdRol")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("ID_ROL");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdRol"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("NAME");
+
+                    b.HasKey("IdRol")
+                        .HasName("PK_ROL");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("IdRol"), false);
+
+                    b.ToTable("ROLES", (string)null);
+                });
+
             modelBuilder.Entity("bad115_backend.Models.Seguimiento", b =>
                 {
                     b.Property<int>("IdSeg")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("ID_SEG");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdSeg"));
 
                     b.Property<string>("Descripcion")
                         .HasMaxLength(200)
@@ -647,8 +695,11 @@ namespace bad115_backend.Migrations
             modelBuilder.Entity("bad115_backend.Models.Subcategoria", b =>
                 {
                     b.Property<int>("IdSub")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("ID_SUB");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdSub"));
 
                     b.Property<int>("IdCat")
                         .HasColumnType("int")
@@ -668,6 +719,60 @@ namespace bad115_backend.Migrations
                     b.HasIndex(new[] { "IdCat" }, "POSEE_FK");
 
                     b.ToTable("SUBCATEGORIAS", (string)null);
+                });
+
+            modelBuilder.Entity("bad115_backend.Models.User", b =>
+                {
+                    b.Property<int>("IdUser")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("ID_USER");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdUser"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("EMAIL");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(255)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("NAME");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("PASSWORD");
+
+                    b.HasKey("IdUser")
+                        .HasName("PK_USER");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("IdUser"), false);
+
+                    b.ToTable("USERS", (string)null);
+                });
+
+            modelBuilder.Entity("bad115_backend.Models.UsersRole", b =>
+                {
+                    b.Property<int>("RolId")
+                        .HasColumnType("int")
+                        .HasColumnName("ROL_ID");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("USER_ID");
+
+                    b.HasIndex("RolId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("USERS_ROLES", (string)null);
                 });
 
             modelBuilder.Entity("Categoriza", b =>
@@ -768,7 +873,6 @@ namespace bad115_backend.Migrations
                     b.HasOne("bad115_backend.Models.Bodega", "IdBodegaNavigation")
                         .WithMany("Pedidoproductos")
                         .HasForeignKey("IdBodega")
-                        .IsRequired()
                         .HasConstraintName("FK_PEDIDOPR_PEDIDOPRO_BODEGA");
 
                     b.HasOne("bad115_backend.Models.Envio", "IdEnvNavigation")
@@ -817,6 +921,25 @@ namespace bad115_backend.Migrations
                         .HasConstraintName("FK_SUBCATEG_POSEE_CATEGORI");
 
                     b.Navigation("IdCatNavigation");
+                });
+
+            modelBuilder.Entity("bad115_backend.Models.UsersRole", b =>
+                {
+                    b.HasOne("bad115_backend.Models.Role", "Rol")
+                        .WithMany()
+                        .HasForeignKey("RolId")
+                        .IsRequired()
+                        .HasConstraintName("FK_ROL");
+
+                    b.HasOne("bad115_backend.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .IsRequired()
+                        .HasConstraintName("FK_USER");
+
+                    b.Navigation("Rol");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("bad115_backend.Models.Bodega", b =>

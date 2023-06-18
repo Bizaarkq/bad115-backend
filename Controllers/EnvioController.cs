@@ -25,10 +25,16 @@ namespace bad115_backend.Controllers
                 .Select(e => new
                 {
                     id_envio = e.IdEnv,
+                    id_pedido = e.IdPed,
+                    codigo = e.Codigo,
+                    fecha = e.Fecha,
                     direccion_origen = e.DireccionOrigen,
                     direccion_destino = e.DireccionDestino,
+                    metodo_envio = e.MetodoEnvio,
                     estado_actual = e.EstadoActual,
-                    fecha_entrega_estimada = e.FechaEntregaEstimada
+                    fecha_entrega_estimada = e.FechaEntregaEstimada,
+                    costo_envio = e.CostoEnvio,
+                    notas = e.Notas,
                 })
                 .ToList();
 
@@ -40,6 +46,7 @@ namespace bad115_backend.Controllers
         {
             // Acceder a las propiedades del objeto JSON utilizando el método GetProperty
             int idPed = request.GetProperty("IdPed").GetInt32();
+            int IdBodega = request.GetProperty("IdBodega").GetInt32();
             string codigo = request.GetProperty("Codigo").GetString();
             DateTime fecha = request.GetProperty("Fecha").GetDateTime();
             string direccionOrigen = request.GetProperty("DireccionOrigen").GetString();
@@ -82,11 +89,12 @@ namespace bad115_backend.Controllers
                 if (pedidoProducto != null)
                 {
                     pedidoProducto.IdEnv = envio.IdEnv;
+                    pedidoProducto.IdBodega = IdBodega;
                     await _context.SaveChangesAsync();
                 }
             }
 
-            return Ok();
+            return StatusCode(200, new { message = "Envio creado exitosamente" });
         }
 
 

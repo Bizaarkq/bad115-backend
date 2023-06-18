@@ -15,7 +15,8 @@ namespace bad115_backend.Migrations
                 name: "BODEGA",
                 columns: table => new
                 {
-                    ID_BODEGA = table.Column<int>(type: "int", nullable: false),
+                    ID_BODEGA = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     NOMBRE = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
                     DIRECCION = table.Column<string>(type: "varchar(200)", unicode: false, maxLength: 200, nullable: true),
                     LATITUDE = table.Column<decimal>(type: "decimal(15,12)", nullable: false),
@@ -31,7 +32,8 @@ namespace bad115_backend.Migrations
                 name: "CATEGORIA",
                 columns: table => new
                 {
-                    ID_CAT = table.Column<int>(type: "int", nullable: false),
+                    ID_CAT = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     NOMBRE = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -44,7 +46,8 @@ namespace bad115_backend.Migrations
                 name: "CLIENTE",
                 columns: table => new
                 {
-                    ID_CLI = table.Column<int>(type: "int", nullable: false),
+                    ID_CLI = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     NOMBRES = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
                     APELLIDOS = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
                     DIRECCION = table.Column<string>(type: "varchar(200)", unicode: false, maxLength: 200, nullable: true),
@@ -79,7 +82,8 @@ namespace bad115_backend.Migrations
                 name: "PROVEEDOR",
                 columns: table => new
                 {
-                    ID_PROV = table.Column<int>(type: "int", nullable: false),
+                    ID_PROV = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     NOMBRE = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
                     DIRECCION = table.Column<string>(type: "varchar(200)", unicode: false, maxLength: 200, nullable: true),
                     CONTACTO = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: true),
@@ -93,10 +97,41 @@ namespace bad115_backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ROLES",
+                columns: table => new
+                {
+                    ID_ROL = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NAME = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ROL", x => x.ID_ROL)
+                        .Annotation("SqlServer:Clustered", false);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "USERS",
+                columns: table => new
+                {
+                    ID_USER = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NAME = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: true),
+                    EMAIL = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false),
+                    PASSWORD = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_USER", x => x.ID_USER)
+                        .Annotation("SqlServer:Clustered", false);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SUBCATEGORIAS",
                 columns: table => new
                 {
-                    ID_SUB = table.Column<int>(type: "int", nullable: false),
+                    ID_SUB = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ID_CAT = table.Column<int>(type: "int", nullable: false),
                     NOMBRE = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false)
                 },
@@ -115,7 +150,8 @@ namespace bad115_backend.Migrations
                 name: "PEDIDO",
                 columns: table => new
                 {
-                    ID_PED = table.Column<int>(type: "int", nullable: false),
+                    ID_PED = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ID_CLI = table.Column<int>(type: "int", nullable: false),
                     CODIGO = table.Column<string>(type: "varchar(10)", unicode: false, maxLength: 10, nullable: false),
                     FECHA = table.Column<DateTime>(type: "datetime", nullable: false),
@@ -182,6 +218,27 @@ namespace bad115_backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "USERS_ROLES",
+                columns: table => new
+                {
+                    ROL_ID = table.Column<int>(type: "int", nullable: false),
+                    USER_ID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.ForeignKey(
+                        name: "FK_ROL",
+                        column: x => x.ROL_ID,
+                        principalTable: "ROLES",
+                        principalColumn: "ID_ROL");
+                    table.ForeignKey(
+                        name: "FK_USER",
+                        column: x => x.USER_ID,
+                        principalTable: "USERS",
+                        principalColumn: "ID_USER");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CATEGORIZA",
                 columns: table => new
                 {
@@ -236,7 +293,8 @@ namespace bad115_backend.Migrations
                 name: "FACTURA",
                 columns: table => new
                 {
-                    ID_FAC = table.Column<int>(type: "int", nullable: false),
+                    ID_FAC = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ID_PED = table.Column<int>(type: "int", nullable: false),
                     CODIGO = table.Column<string>(type: "varchar(10)", unicode: false, maxLength: 10, nullable: false),
                     FECHA_EMISION = table.Column<DateTime>(type: "datetime", nullable: false),
@@ -265,15 +323,15 @@ namespace bad115_backend.Migrations
                 {
                     ID_PROD = table.Column<int>(type: "int", nullable: false),
                     ID_PED = table.Column<int>(type: "int", nullable: false),
-                    ID_BODEGA = table.Column<int>(type: "int", nullable: false),
                     ID_ENV = table.Column<int>(type: "int", nullable: true),
+                    ID_BODEGA = table.Column<int>(type: "int", nullable: true),
                     DESCUENTO = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
                     NOTAS = table.Column<string>(type: "varchar(250)", unicode: false, maxLength: 250, nullable: true),
                     CANTIDAD = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PEDIDOPRODUCTO", x => new { x.ID_PROD, x.ID_PED, x.ID_BODEGA })
+                    table.PrimaryKey("PK_PEDIDOPRODUCTO", x => new { x.ID_PROD, x.ID_PED })
                         .Annotation("SqlServer:Clustered", false);
                     table.ForeignKey(
                         name: "FK_PEDIDOPR_PEDIDOPRO_BODEGA",
@@ -301,7 +359,8 @@ namespace bad115_backend.Migrations
                 name: "SEGUIMIENTO",
                 columns: table => new
                 {
-                    ID_SEG = table.Column<int>(type: "int", nullable: false),
+                    ID_SEG = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ID_ENV = table.Column<int>(type: "int", nullable: false),
                     ESTADO_ACTUAL = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: false),
                     FECHA_HORA_UPDATE = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
@@ -327,7 +386,8 @@ namespace bad115_backend.Migrations
                 name: "PAGOS",
                 columns: table => new
                 {
-                    ID_PAG = table.Column<int>(type: "int", nullable: false),
+                    ID_PAG = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ID_FAC = table.Column<int>(type: "int", nullable: false),
                     FECHA_PAGO = table.Column<DateTime>(type: "datetime", nullable: false),
                     MONTO = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
@@ -427,6 +487,16 @@ namespace bad115_backend.Migrations
                 name: "POSEE_FK",
                 table: "SUBCATEGORIAS",
                 column: "ID_CAT");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_USERS_ROLES_ROL_ID",
+                table: "USERS_ROLES",
+                column: "ROL_ID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_USERS_ROLES_USER_ID",
+                table: "USERS_ROLES",
+                column: "USER_ID");
         }
 
         /// <inheritdoc />
@@ -451,6 +521,9 @@ namespace bad115_backend.Migrations
                 name: "SEGUIMIENTO");
 
             migrationBuilder.DropTable(
+                name: "USERS_ROLES");
+
+            migrationBuilder.DropTable(
                 name: "SUBCATEGORIAS");
 
             migrationBuilder.DropTable(
@@ -467,6 +540,12 @@ namespace bad115_backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "ENVIO");
+
+            migrationBuilder.DropTable(
+                name: "ROLES");
+
+            migrationBuilder.DropTable(
+                name: "USERS");
 
             migrationBuilder.DropTable(
                 name: "CATEGORIA");
