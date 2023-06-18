@@ -11,7 +11,7 @@ public partial class Seguimiento
 
     public string EstadoActual { get; set; } = null!;
 
-    public byte[] FechaHoraUpdate { get; set; } = null!;
+    public DateTime FechaHoraUpdate { get; set; }
 
     public string UbicacionActual { get; set; } = null!;
 
@@ -25,5 +25,5 @@ public partial class Seguimiento
 
     public string? EstadoPrevio { get; set; }
 
-    public virtual Envio IdEnvNavigation { get; set; } = null!;
+    public virtual Envio? IdEnvNavigation { get; set; } = null!;
 }

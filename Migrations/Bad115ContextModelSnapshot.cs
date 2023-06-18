@@ -643,11 +643,8 @@ namespace bad115_backend.Migrations
                         .HasColumnType("varchar(20)")
                         .HasColumnName("ESTADO_PREVIO");
 
-                    b.Property<byte[]>("FechaHoraUpdate")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("rowversion")
+                    b.Property<DateTime>("FechaHoraUpdate")
+                        .HasColumnType("datetime")
                         .HasColumnName("FECHA_HORA_UPDATE");
 
                     b.Property<int>("IdEnv")

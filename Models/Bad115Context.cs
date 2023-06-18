@@ -502,8 +502,7 @@ public partial class Bad115Context : DbContext
                 .IsUnicode(false)
                 .HasColumnName("ESTADO_PREVIO");
             entity.Property(e => e.FechaHoraUpdate)
-                .IsRowVersion()
-                .IsConcurrencyToken()
+                .HasColumnType("datetime")
                 .HasColumnName("FECHA_HORA_UPDATE");
             entity.Property(e => e.IdEnv).HasColumnName("ID_ENV");
             entity.Property(e => e.NivelUrgencia)

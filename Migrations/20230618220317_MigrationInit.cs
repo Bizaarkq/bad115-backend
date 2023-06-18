@@ -363,7 +363,7 @@ namespace bad115_backend.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ID_ENV = table.Column<int>(type: "int", nullable: false),
                     ESTADO_ACTUAL = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: false),
-                    FECHA_HORA_UPDATE = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
+                    FECHA_HORA_UPDATE = table.Column<DateTime>(type: "datetime", nullable: false),
                     UBICACION_ACTUAL = table.Column<string>(type: "varchar(150)", unicode: false, maxLength: 150, nullable: false),
                     DESCRIPCION = table.Column<string>(type: "varchar(200)", unicode: false, maxLength: 200, nullable: true),
                     NOTAS = table.Column<string>(type: "varchar(250)", unicode: false, maxLength: 250, nullable: true),

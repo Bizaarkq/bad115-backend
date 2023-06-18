@@ -12,7 +12,7 @@ using bad115_backend.Models;
 namespace bad115_backend.Migrations
 {
     [DbContext(typeof(Bad115Context))]
-    [Migration("20230618041751_MigrationInit")]
+    [Migration("20230618220317_MigrationInit")]
     partial class MigrationInit
     {
         /// <inheritdoc />
@@ -646,11 +646,8 @@ namespace bad115_backend.Migrations
                         .HasColumnType("varchar(20)")
                         .HasColumnName("ESTADO_PREVIO");
 
-                    b.Property<byte[]>("FechaHoraUpdate")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("rowversion")
+                    b.Property<DateTime>("FechaHoraUpdate")
+                        .HasColumnType("datetime")
                         .HasColumnName("FECHA_HORA_UPDATE");
 
                     b.Property<int>("IdEnv")

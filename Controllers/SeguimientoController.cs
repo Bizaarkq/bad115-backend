@@ -17,6 +17,26 @@ namespace bad115_backend.Controllers
             _context = context;
         }
 
+        [HttpGet("{id}", Name = "GetSeguimiento")]
+        public async Task<ActionResult<Seguimiento>> GetSeguimiento(int id)
+        {
+            var Seguimiento = await _context.Seguimientos.FindAsync(id);
+            if (Seguimiento == null)
+            {
+                return NotFound();
+            }
+
+            return Seguimiento;
+
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Seguimiento>> Post(Seguimiento seguimiento)
+        {
+            _context.Seguimientos.Add(seguimiento);
+            await _context.SaveChangesAsync();
+            return new CreatedAtRouteResult("Getseguimiento", new { id = seguimiento.IdSeg }, seguimiento);
+        }
 
     }
 }
