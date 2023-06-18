@@ -97,6 +97,17 @@ namespace bad115_backend.Controllers
             return StatusCode(200, new { message = "Envio creado exitosamente" });
         }
 
+        [HttpGet("seguimientos/{idEnvio}")]
+        public IActionResult GetSeguimientosDeEnvio(int idEnvio)
+        {
+            var seguimientos = _context.Seguimientos
+                .Where(s => s.IdEnv == idEnvio)
+                .OrderBy(s => s.FechaHoraUpdate)
+                .ToList();
+
+            return Ok(seguimientos);
+        }
+
 
     }
 }
