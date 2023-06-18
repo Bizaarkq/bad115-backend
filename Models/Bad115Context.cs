@@ -37,9 +37,15 @@ public partial class Bad115Context : DbContext
 
     public virtual DbSet<Proveedor> Proveedors { get; set; }
 
+    public virtual DbSet<Role> Roles { get; set; }
+
     public virtual DbSet<Seguimiento> Seguimientos { get; set; }
 
     public virtual DbSet<Subcategoria> Subcategorias { get; set; }
+
+    public virtual DbSet<User> Users { get; set; }
+
+    public virtual DbSet<UsersRole> UsersRoles { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Name=ConnectionStrings:DefaultConnection");
@@ -455,6 +461,23 @@ public partial class Bad115Context : DbContext
                 .HasColumnName("TELEFONO");
         });
 
+        modelBuilder.Entity<Role>(entity =>
+        {
+            entity.HasKey(e => e.IdRol)
+                .HasName("PK_ROL")
+                .IsClustered(false);
+
+            entity.ToTable("ROLES");
+
+            entity.Property(e => e.IdRol)
+                .ValueGeneratedNever()
+                .HasColumnName("ID_ROL");
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("NAME");
+        });
+
         modelBuilder.Entity<Seguimiento>(entity =>
         {
             entity.HasKey(e => e.IdSeg).IsClustered(false);
@@ -548,6 +571,51 @@ public partial class Bad115Context : DbContext
                         j.IndexerProperty<int>("IdSub").HasColumnName("ID_SUB");
                         j.IndexerProperty<int>("IdProd").HasColumnName("ID_PROD");
                     });
+        });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasKey(e => e.IdUser)
+                .HasName("PK_USER")
+                .IsClustered(false);
+
+            entity.ToTable("USERS");
+
+            entity.Property(e => e.IdUser)
+                .ValueGeneratedNever()
+                .HasColumnName("ID_USER");
+            entity.Property(e => e.Email)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("EMAIL");
+            entity.Property(e => e.Name)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("NAME");
+            entity.Property(e => e.Password)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("PASSWORD");
+        });
+
+        modelBuilder.Entity<UsersRole>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("USERS_ROLES");
+
+            entity.Property(e => e.RolId).HasColumnName("ROL_ID");
+            entity.Property(e => e.UserId).HasColumnName("USER_ID");
+
+            entity.HasOne(d => d.Rol).WithMany()
+                .HasForeignKey(d => d.RolId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ROL");
+
+            entity.HasOne(d => d.User).WithMany()
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_USER");
         });
 
         OnModelCreatingPartial(modelBuilder);
