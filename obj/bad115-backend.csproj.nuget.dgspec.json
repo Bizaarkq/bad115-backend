@@ -1,26 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\laragon\\www\\bad115-backend\\bad115-backend.csproj": {}
+    "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyectos\\bad115-backend\\bad115-backend.csproj": {}
   },
   "projects": {
-    "C:\\laragon\\www\\bad115-backend\\bad115-backend.csproj": {
+    "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyectos\\bad115-backend\\bad115-backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\laragon\\www\\bad115-backend\\bad115-backend.csproj",
+        "projectUniqueName": "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyectos\\bad115-backend\\bad115-backend.csproj",
         "projectName": "bad115-backend",
-        "projectPath": "C:\\laragon\\www\\bad115-backend\\bad115-backend.csproj",
-        "packagesPath": "C:\\Users\\JH\\.nuget\\packages\\",
-        "outputPath": "C:\\laragon\\www\\bad115-backend\\obj\\",
+        "projectPath": "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyectos\\bad115-backend\\bad115-backend.csproj",
+        "packagesPath": "C:\\Users\\alvar\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyectos\\bad115-backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\JH\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\alvar\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Program Files\\dotnet\\sdk\\7.0.304\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -107,7 +107,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }
